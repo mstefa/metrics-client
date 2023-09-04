@@ -1,6 +1,5 @@
 import { Button, Container, Nav, Navbar as NavbarBs } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
-// import { useShoppingCart } from "../context/ShoppingCartContext"
 
 export function Navbar() {
   return (
@@ -10,11 +9,8 @@ export function Navbar() {
           <Nav.Link to="/" as={NavLink}>
             Home
           </Nav.Link>
-          <Nav.Link to="/store" as={NavLink}>
-            Store
-          </Nav.Link>
-          <Nav.Link to="/cart" as={NavLink}>
-            Cart
+          <Nav.Link to="/add-metric" as={NavLink}>
+            Add
           </Nav.Link>
           <Nav.Link to="/about" as={NavLink}>
             About

@@ -7,6 +7,7 @@ import { Navbar } from './modules/shared/components/Navbar';
 import { ItemsContextProvider } from './modules/items/context/ItemsContext';
 import { CartPage } from './pages/CartPage';
 import { FormPage } from './pages/FormPage';
+import { AddMetric } from './pages/AddMetric';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
       <ItemsContextProvider>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/add-metric" element={<AddMetric />} />
           <Route path="/cart" element={<CartPage />} />
           <Route path="/store" element={<Store />} />
           <Route path="/form" element={<FormPage />} />
