@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Button } from 'react-bootstrap';
 import Form from 'react-bootstrap/Form';
+import { addMetric } from '../repository/MetricRepository';
+import { Metric } from '../types/MetricTypes';
 
 export default function AddMetricForm() {
   const [input, setInput] = useState({
@@ -30,7 +32,12 @@ export default function AddMetricForm() {
   const handleSubmit = (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (input.name && input.name.length > 0) {
-      console.error(input);
+      const metric: Metric = {
+        timestamp: new Date().toISOString(),
+        name: input.name,
+        value: input.value,
+      };
+      addMetric(metric);
     } else {
       window.alert('Please check the inputs');
     }
