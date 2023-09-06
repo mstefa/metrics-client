@@ -11,19 +11,9 @@ import {
 import { Line } from 'react-chartjs-2';
 import DatePicker from 'react-datepicker';
 import { useMetrics } from '../hooks/useMetrics';
-import { useState } from 'react';
 import { Button, Col, Form, Row } from 'react-bootstrap';
-import { MetricNameEnum } from '../types/MetricTypes';
 import { MetricQueryFilter } from '../types/MetricQueryFilter';
-
-function mapEnumToOptions<T extends Record<string, string>>(
-  enumObject: T
-): { id: string; name: string }[] {
-  return Object.keys(enumObject).map((key) => ({
-    id: enumObject[key],
-    name: key,
-  }));
-}
+import { useQueryMetricFilter } from '../hooks/useQueryMetricFilter';
 
 ChartJS.register(
   CategoryScale,
@@ -42,21 +32,15 @@ const options = {
       position: 'top' as const,
     },
     title: {
-      display: true,
-      text: 'Chart.js Line Chart',
+      display: false,
+      text: 'metrics',
     },
   },
 };
 
 export function MetricGraph() {
   const { metricGraphData, updateMetric } = useMetrics();
-  const [selectedFromDate, setSelectedFromDate] = useState(new Date());
-  const [selectedToDate, setSelectedToDate] = useState(new Date());
-  const metricNames = mapEnumToOptions(MetricNameEnum);
-  const [input, setInput] = useState({
-    name: '',
-    intervalUnit: metricNames[0].id,
-  });
+  const { inputs, setInput, metricNames } = useQueryMetricFilter();
 
   const handleChangeOptions = (e: React.ChangeEvent<HTMLSelectElement>) => {
     let value = Array.from(e.target.selectedOptions, (option) => {
@@ -64,7 +48,7 @@ export function MetricGraph() {
     });
     console.error(value[0].id);
     setInput({
-      ...input,
+      ...inputs,
       name: value[0].id, //TODO
     });
   };
@@ -72,19 +56,25 @@ export function MetricGraph() {
   const handleSubmit = (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
     const queryFilter: MetricQueryFilter = {
-      metricName: input.name,
-      from: selectedFromDate.toISOString(),
-      to: selectedToDate.toISOString(),
+      metricName: inputs.name,
+      from: inputs.selectedFromDate.toISOString(),
+      to: inputs.selectedToDate.toISOString(),
     };
     updateMetric(queryFilter);
   };
 
   const handleFromDateChange = (date: Date) => {
-    setSelectedFromDate(date);
+    setInput({
+      ...inputs,
+      selectedFromDate: date,
+    });
   };
 
   const handleToDateChange = (date: Date) => {
-    setSelectedToDate(date);
+    setInput({
+      ...inputs,
+      selectedToDate: date,
+    });
   };
 
   return (
@@ -96,7 +86,7 @@ export function MetricGraph() {
               <Form.Label>From:</Form.Label>
               <DatePicker
                 id="datetimePicker"
-                selected={selectedFromDate}
+                selected={inputs.selectedFromDate}
                 onChange={handleFromDateChange}
                 showTimeSelect
                 timeFormat="HH:mm:ss"
@@ -112,7 +102,7 @@ export function MetricGraph() {
               <Form.Label>To:</Form.Label>
               <DatePicker
                 id="datetimePicker"
-                selected={selectedToDate}
+                selected={inputs.selectedToDate}
                 onChange={handleToDateChange}
                 showTimeSelect
                 timeFormat="HH:mm:ss"
