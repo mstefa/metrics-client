@@ -1,10 +1,10 @@
-import { Graph } from '../modules/graph/Graph';
+import { MetricGraph } from '../modules/metric/components/MetricGraph';
 
 export function Home() {
   return (
     <>
-      <h1>Home</h1>
-      <Graph></Graph>
+      <h1>Metrics</h1>
+      <MetricGraph></MetricGraph>
     </>
   );
 }

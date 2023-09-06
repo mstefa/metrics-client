@@ -8,6 +8,7 @@ import { ItemsContextProvider } from './modules/items/context/ItemsContext';
 import { CartPage } from './pages/CartPage';
 import { FormPage } from './pages/FormPage';
 import { AddMetric } from './pages/AddMetric';
+import 'react-datepicker/dist/react-datepicker.css';
 
 function App() {
   return (
