@@ -31,8 +31,12 @@ async function addMetric(metric: Metric): Promise<void> {
 async function retrieveMetrics(
   query: MetricQueryFilter
 ): Promise<Nullable<MetricsAverages>> {
+  const nameUrlQuery = query.metricNames
+    .map((name) => `name=${name}`)
+    .toString()
+    .replace(/,/g, '&');
   return fetch(
-    `http://localhost:3000/metrics/?name=${query.metricName}&from=${query.from}&to=${query.to}&intervalUnit=second`
+    `http://localhost:3000/metrics/?${nameUrlQuery}&from=${query.from}&to=${query.to}&intervalUnit=${query.intervalUnit}`
   )
     .then((response) => response.json())
     .then((json) => {

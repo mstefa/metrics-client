@@ -58,12 +58,6 @@ export default function AddMetricForm() {
     },
   ];
 
-  //TODO
-  // export enum MetricNameEnum {
-  //   RESPONSE_TIME = 'response_time',
-  //   CPU_USAGE = 'cpu_usage',
-  //   MEMORY_USAGE = 'memory_usage',
-  // }
   return (
     <Form onSubmit={handleSubmit}>
       <Form.Group className="mb-3" controlId="category">

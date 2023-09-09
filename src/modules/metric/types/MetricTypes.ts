@@ -1,4 +1,4 @@
-export enum intervalUnitEnum {
+export enum IntervalUnitEnum {
   SECOND = 'second',
   MINUTE = 'minute',
   HOUR = 'hour',
@@ -24,7 +24,7 @@ type MetricsAveragesValues = {
 }
 
 export type MetricsAverages = {
-  intervalUnit: intervalUnitEnum;
+  intervalUnit: IntervalUnitEnum;
   timeValues: string[];
   metricValues: MetricsAveragesValues[];
 

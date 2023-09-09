@@ -15,7 +15,8 @@ export const useMetrics = () => {
 
 
     updateMetric({
-      metricName: 'response_time',
+      metricNames: ['response_time'], //TODO
+      intervalUnit: 'seconds',
       from: dateBefore.toISOString(),
       to: dateNow.toISOString(),
     }
@@ -53,8 +54,8 @@ function generateGraphData(MetricsAverages: MetricsAverages) {
     return {
       label: metric.name as string,
       data: metric.values,
-      borderColor: 'rgb(255, 99, 132)',
-      backgroundColor: 'rgba(255, 99, 132, 0.5)',
+      borderColor: colors[createOneDigitHash(metric.name as string)],
+      backgroundColor: colors[createOneDigitHash(metric.name as string)],
     };
   })
 
@@ -62,4 +63,28 @@ function generateGraphData(MetricsAverages: MetricsAverages) {
     labels: MetricsAverages.timeValues,
     datasets,
   };
+}
+
+
+const colors = [
+  'rgba(255, 235, 239, 1)',
+  'rgba(255, 93, 126, 1)',
+  'rgba(255, 223, 205, 1)',
+  'rgba(230, 246, 247, 1)',
+  'rgba(156, 218, 222, 1)',
+  'rgba(106, 199, 206, 1)',
+  'rgba(57, 181, 190, 1)',
+  'rgba(7, 162, 173, 1)',
+  'rgba(6, 131, 140, 1)',
+]
+
+function createOneDigitHash(inputString: string): number {
+  // Calculate the sum of character codes
+  const charCodesSum = inputString.split('').reduce((sum, char) => sum + char.charCodeAt(0), 0);
+
+  // Reduce the sum to a single digit
+  const singleDigitHash = charCodesSum % 9;
+
+  // Ensure the result is a positive single-digit number
+  return singleDigitHash < 0 ? singleDigitHash + 9 : singleDigitHash;
 }

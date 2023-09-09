@@ -1,5 +1,6 @@
 export type MetricQueryFilter = {
-  metricName: string;
+  metricNames: string[];
   from: string;
   to: string;
+  intervalUnit: string;
 }

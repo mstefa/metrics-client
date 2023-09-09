@@ -40,23 +40,23 @@ const options = {
 
 export function MetricGraph() {
   const { metricGraphData, updateMetric } = useMetrics();
-  const { inputs, setInput, metricNames } = useQueryMetricFilter();
+  const { inputs, setInput, metricNames, timeUnits } = useQueryMetricFilter();
 
   const handleChangeOptions = (e: React.ChangeEvent<HTMLSelectElement>) => {
     let value = Array.from(e.target.selectedOptions, (option) => {
-      return { id: option.id, name: option.value };
+      return option.id;
     });
-    console.error(value[0].id);
     setInput({
       ...inputs,
-      name: value[0].id, //TODO
+      [e.target.name]: value, //TODO
     });
   };
 
   const handleSubmit = (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
     const queryFilter: MetricQueryFilter = {
-      metricName: inputs.name,
+      metricNames: inputs.name,
+      intervalUnit: inputs.intervalUnit[0],
       from: inputs.selectedFromDate.toISOString(),
       to: inputs.selectedToDate.toISOString(),
     };
@@ -114,16 +114,33 @@ export function MetricGraph() {
             </div>
           </Col>
           <Col>
-            <Form.Group className="mb-3" controlId="category">
+            <Form.Group className="mb-3" controlId="name">
               <Form.Label>Metric name</Form.Label>
               <Form.Select
-                aria-label="Default select example"
                 id="name"
                 name="name"
                 multiple
                 onChange={handleChangeOptions}
               >
                 {metricNames.map((e) => {
+                  return (
+                    <option id={e.id} value={e.name}>
+                      {e.name}
+                    </option>
+                  );
+                })}
+              </Form.Select>
+            </Form.Group>
+          </Col>
+          <Col>
+            <Form.Group className="mb-3" controlId="timeUnit">
+              <Form.Label>Metric name</Form.Label>
+              <Form.Select
+                id="intervalUnit"
+                name="intervalUnit"
+                onChange={handleChangeOptions}
+              >
+                {timeUnits.map((e) => {
                   return (
                     <option id={e.id} value={e.name}>
                       {e.name}
