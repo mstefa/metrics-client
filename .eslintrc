@@ -1,4 +1,3 @@
-
 {
   "parser": "@babel/eslint-parser",
   "env": {
@@ -9,18 +8,20 @@
     "eslint-plugin-html",
     "import"
   ],
-  // "extends": [
-  //   "eslint:recommended"
-  // ],
+  "extends": [
+    "eslint:recommended"
+  ],
   "rules": {
-    "no-console": ["error", { "allow": ["error"] }],
+    "no-console": [
+      "error",
+      {
+        "allow": [
+          "error"
+        ]
+      }
+    ],
     "no-var": "error",
-    // "object-shorthand": "error",
-    // "prefer-const": "error",
-    // "prefer-template": "error",
     "prefer-destructuring": "warn",
-    // "prefer-rest-params": "warn",
-    // "prefer-spread": "warn",
     "yoda": "error",
     "import/first": "error",
     "import/newline-after-import": "error",

@@ -1,7 +1,7 @@
-import { debug } from 'console';
-import { Metric, MetricsAverages } from '../types/MetricTypes';
+import { Metric } from '../types/MetricTypes';
 import { Nullable } from '../types/Nullable';
 import { MetricQueryFilter } from '../types/MetricQueryFilter';
+import { MetricsAverages } from '../types/MetricAverages';
 
 const headers = {
   'Content-Type': 'application/json',
