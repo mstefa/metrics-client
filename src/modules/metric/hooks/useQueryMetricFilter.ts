@@ -15,5 +15,5 @@ export const useQueryMetricFilter = () => {
     selectedToDate: dateNow,
   });
 
-  return { inputs, setInput, metricNames, intervalUnits }
+  return { inputs, setInput }
 }

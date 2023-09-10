@@ -2,14 +2,15 @@ import { useQueryMetricFilter } from '../hooks/useQueryMetricFilter';
 import { MetricQueryFilter } from '../types/MetricQueryFilter';
 import DatePicker from 'react-datepicker';
 import { Button, Col, Form, Row } from 'react-bootstrap';
+import { metricNames } from '../types/MetricNamesEnum';
+import { intervalUnits } from '../types/IntervalUnitEnum';
 
 interface MetricFiltersProps {
   updateMetric: (query: MetricQueryFilter) => void;
 }
 
 export function MetricsFiltersForm({ updateMetric }: MetricFiltersProps) {
-  const { inputs, setInput, metricNames, intervalUnits } =
-    useQueryMetricFilter();
+  const { inputs, setInput } = useQueryMetricFilter();
 
   const handleChangeOptions = (e: React.ChangeEvent<HTMLSelectElement>) => {
     let value = Array.from(e.target.selectedOptions, (option) => {

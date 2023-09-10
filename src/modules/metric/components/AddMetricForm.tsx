@@ -3,6 +3,7 @@ import { Button } from 'react-bootstrap';
 import Form from 'react-bootstrap/Form';
 import { addMetric } from '../repository/MetricRepository';
 import { Metric } from '../types/MetricTypes';
+import { metricNames } from '../types/MetricNamesEnum';
 
 export default function AddMetricForm() {
   const [input, setInput] = useState({
@@ -22,7 +23,6 @@ export default function AddMetricForm() {
     let value = Array.from(e.target.selectedOptions, (option) => {
       return { id: option.id, name: option.value };
     });
-    console.error(value[0].id);
     setInput({
       ...input,
       name: value[0].id,
@@ -43,35 +43,19 @@ export default function AddMetricForm() {
     }
   };
 
-  const metricNames = [
-    {
-      id: 'response_time',
-      name: 'response_time',
-    },
-    {
-      id: 'cpu_usage',
-      name: 'cpu_usage',
-    },
-    {
-      id: 'memory_usage',
-      name: 'memory_usage',
-    },
-  ];
-
   return (
     <Form onSubmit={handleSubmit}>
-      <Form.Group className="mb-3" controlId="category">
+      <Form.Group className="mb-3" controlId="name">
         <Form.Label>Metric name</Form.Label>
         <Form.Select
           aria-label="Default select example"
           id="name"
           name="name"
-          // multiple
           onChange={handleChangeOptions}
         >
           {metricNames.map((e) => {
             return (
-              <option id={e.id} value={e.name}>
+              <option key={e.id} id={e.id} value={e.name}>
                 {e.name}
               </option>
             );
@@ -87,16 +71,6 @@ export default function AddMetricForm() {
           value={input.value}
         />
       </Form.Group>
-      {/* TODO */}
-      {/* <Form.Group className="mb-3" controlId="price">
-        <Form.Label>Price</Form.Label>
-        <Form.Control
-          type="number"
-          name="price"
-          onChange={handleInputChange}
-          value={input.price}
-        />
-      </Form.Group> */}
       <Button variant="primary" type="submit">
         {' '}
         Submit
