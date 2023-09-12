@@ -1,4 +1,4 @@
-export type MetricGraphData = {
+export interface MetricGraphData {
   labels: string[];
   datasets: {
     label: string;
